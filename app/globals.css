@@ -2,20 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Define el color del texto principal (RGB: 0,0,0 = negro) */
+  --foreground-rgb: 0, 0, 0;
+  /* Define el color de fondo principal (RGB: 214,219,220 = gris claro) */
+  --background-rgb: 214, 219, 220;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Estilos globales del body */
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Aplica el color de texto usando la variable definida arriba */
+  color: rgb(var(--foreground-rgb));
+  /* Aplica el color de fondo usando la variable definida arriba */
+  background: rgb(var(--background-rgb));
+  /* Asegura que el body ocupe al menos el 100% del alto de la ventana */
+  min-height: 100vh;
 }
+
+/* Contenedor para mantener proporción de aspecto 4:3 */
+.aspect-w-4 {
+  /* Necesario para que el padding porcentual funcione correctamente */
+  position: relative;
+  /* Crea un espacio con proporción 4:3 (75% = 3/4) */
+  padding-bottom: 75%;
+}
+
+/* Estilos para elementos dentro del contenedor de aspecto */
+.aspect-w-4 > * {
+  /* Posicionamiento absoluto para llenar el contenedor padre */
+  position: absolute;
+  /* Estira el elemento para llenar todo el contenedor */
+  height: 100%;
+  width: 100%;
+  /* Ancla el elemento a todas las esquinas del contenedor */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* 
+Notas adicionales sobre los efectos:
+
+1. La proporción de aspecto 4:3 se logra mediante:
+   - Un contenedor relativo (.aspect-w-4)
+   - Un padding-bottom de 75% que crea el espacio
+   - Los elementos hijos se posicionan absolutamente para llenar este espacio
+
+2. Los colores usando variables CSS (--variable-name) permiten:
+   - Cambiar fácilmente el tema de toda la aplicación
+   - Mantener consistencia en los colores
+   - Facilitar cambios entre modo claro/oscuro
+
+3. El min-height: 100vh en el body asegura que:
+   - La página siempre ocupe al menos toda la altura de la ventana
+   - No haya saltos visuales en páginas con poco contenido
+*/
