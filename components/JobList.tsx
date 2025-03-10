@@ -1,7 +1,16 @@
 //'use client'
 // Componente que maneja la lista de trabajos
 // Realiza la petición a la API y muestra los resultados usando el componente Card
-import { TarjetaTrabajo, TrabajoProps } from './cards'
+import { TarjetaTrabajo } from './cards'
+
+// Define the TrabajoProps type
+type TrabajoProps = {
+  id: string;
+  name: string;
+  imagen: string;
+  titulo: string;
+  descripcion: string;
+};
 
 export default async function JobList() {
   // Hacemos la petición a Strapi 5
@@ -16,7 +25,7 @@ export default async function JobList() {
 
   // Adaptamos el mapeo para Strapi 5
   const trabajos: TrabajoProps[] = data.map((item: any) => ({
-    id: item.id,
+    id: item.id.toString(),
     imagen: item.imagen?.url 
       ? `http://localhost:1337${item.imagen.url}`
       : '/placeholder-image.jpg',

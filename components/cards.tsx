@@ -6,6 +6,7 @@ export interface TrabajoProps {
   imagen: string; // Cambiamos color por imagen
   titulo: string;
   descripcion?: string;
+  contenido?: any; // Añadimos el campo contenido
 }
 
 // Componente para una tarjeta individual
@@ -33,11 +34,10 @@ export function TarjetaTrabajo({ id, imagen, titulo }: TrabajoProps) {
 }
 
 // También actualizamos el componente TrabajoDetallado
-export function TrabajoDetallado({ imagen, titulo, descripcion }: TrabajoProps) {
+export function TrabajoDetallado({ imagen, titulo, descripcion, contenido }: TrabajoProps) {
   return (
     <div className="container mx-auto px-4">
       <div className="w-full h-[50vh] mb-8">
-        {/* Reemplazamos el div con color por una imagen */}
         <img 
           src={imagen} 
           alt={titulo}
@@ -48,7 +48,20 @@ export function TrabajoDetallado({ imagen, titulo, descripcion }: TrabajoProps) 
         <div className="grid grid-cols-1 gap-8">
           <div className="prose prose-lg">
             <h1 className="text-3xl font-bold mb-4">{titulo}</h1>
-            <p className="text-gray-700">{descripcion}</p>
+            <p className="text-gray-700 mb-8">{descripcion}</p>
+            
+            <div className="mt-8">
+              {contenido && contenido.map((bloque: any, index: number) => {
+                switch (bloque.type) {
+                  case 'paragraph':
+                    return <p key={index} className="mb-4">{bloque.children[0].text}</p>;
+                  case 'heading':
+                    return <h2 key={index} className="text-2xl font-bold mb-4">{bloque.children[0].text}</h2>;
+                  default:
+                    return null;
+                }
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -56,25 +69,7 @@ export function TrabajoDetallado({ imagen, titulo, descripcion }: TrabajoProps) 
   );
 }
 
-// Componente Card: Representa cada trabajo individual en forma de tarjeta
-// Muestra la información principal del trabajo como título, empresa, ubicación, etc.
-interface CardProps {
-  title: string
-  company: string
-  location: string
-  salary?: string
-  description: string
-}
 
-export default function Card({ title, company, location, salary, description }: CardProps) {
-  return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-4">
-      <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      <div className="text-gray-600 mb-2">
-        <p>{company} • {location}</p>
-        {salary && <p className="font-medium">{salary}</p>}
-      </div>
-      <p className="text-gray-700">{description}</p>
-    </div>
-  )
-}
+
+
+

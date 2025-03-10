@@ -1,20 +1,28 @@
 // Importamos los tipos y componentes necesarios
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, Chakra_Petch } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import Button from "@/components/button1";
+import NavBar from '@/components/NavBar'
 
-// Configuración de la fuente Inter de Google Fonts
-// Cargamos solo el subconjunto "latin" para optimizar el rendimiento
+// Configuración de las fuentes de Google Fonts
 const inter = Inter({ subsets: ["latin"] });
 
-// Layout principal de la aplicación
-// Define la estructura básica y los metadatos de la app
-export const metadata = {
-  title: 'Job Search App',
-  description: 'Aplicación de búsqueda de empleos',
-}
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const chakraPetch = Chakra_Petch({
+  weight: ['400', '600', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+// Metadatos de la aplicación
+export const metadata: Metadata = {
+  title: 'portfolio shervin hatami massoumpour',
+  description: 'portfolio shervin hatami massoumpour',
+};
 
 // Componente principal de Layout que envuelve toda la aplicación
 // children: Contenido de las páginas que se renderizarán dentro del layout
@@ -28,32 +36,7 @@ export default function RootLayout({
     <html lang="es">
       {/* Aplicamos la fuente Inter a todo el body */}
       <body className={inter.className}>
-        {/* Barra de navegación fija en la parte superior */}
-        <nav className="fixed top-0 w-full bg-gray-800 p-4 z-50">
-          <div className="container mx-auto flex items-center justify-between">
-            {/* Logo o imagen de perfil */}
-            <div className="w-12 h-12 bg-red-500 rounded-full">
-              {/* Placeholder para la imagen de perfil */}
-            </div>
-            
-            {/* Menú de navegación */}
-            <div className="flex gap-4">
-              {/* Reemplazamos los botones existentes con Button */}
-              <Button isHome={true}>
-                Home
-              </Button>
-              <Button>
-                Options
-              </Button>
-              <Button>
-                About me
-              </Button>
-            </div>
-          </div>
-        </nav>
-
-        {/* Contenido principal */}
-        {/* pt-20 añade padding superior para compensar la altura de la nav fija */}
+        <NavBar />
         <main className="pt-20">
           {children} {/* Aquí se renderiza el contenido de cada página */}
         </main>
