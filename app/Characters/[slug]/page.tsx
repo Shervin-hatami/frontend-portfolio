@@ -1,13 +1,20 @@
 import React from 'react';
 import fetchCharacters from '../../../components/CharacterData';
 
-export default async function Page({ params }: { params: { slug: string } }) {
-    const characters = await fetchCharacters(); // Obtener personajes directamente
-    const { slug } = await params; // No es necesario usar await aquí
-    const character = characters.find(char => char.slug === slug); // Filtrar el personaje por slug
+type Props = {
+    params: Promise<{
+        slug: string
+    }>
+}
+
+export default async function Page({ params }: Props) {
+    const characters = await fetchCharacters();
+    const resolvedParams = await params;
+    const { slug } = resolvedParams;
+    const character = characters.find(char => char.slug === slug);
 
     if (!character) {
-        return <div className='py-5'>No se encontró el personaje.</div>; // Manejo de error si no se encuentra el personaje
+        return <div className='py-5'>No se encontró el personaje.</div>;
     }
 
     // Construir la URL de la imagen de manera similar a CharacterPage

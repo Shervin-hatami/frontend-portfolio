@@ -1,10 +1,11 @@
 import { EventoProps } from "@/components/bannerEvento";
 import { Space_Grotesk, Chakra_Petch } from 'next/font/google'
+import { Metadata } from 'next'
 
 interface EventoDetailProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const spaceGrotesk = Space_Grotesk({ 
@@ -18,22 +19,44 @@ const chakraPetch = Chakra_Petch({
   display: 'swap',
 });
 
+async function getEvento(id: string) {
+  const url = new URL('https://backend-portfolio-app.onrender.com/api/banner-eventos');
+  url.searchParams.append('filters[id]', id);
+  url.searchParams.append('populate', '*');
+  
+  const response = await fetch(url, {
+    cache: 'no-store',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error al cargar el evento: ${response.status}`);
+  }
+
+  const { data } = await response.json();
+  return data;
+}
+
+export async function generateMetadata({ params }: EventoDetailProps): Promise<Metadata> {
+  try {
+    const resolvedParams = await params;
+    const data = await getEvento(resolvedParams.id);
+    return {
+      title: data[0]?.descripcion || `Evento ${resolvedParams.id}`,
+    };
+  } catch (error) {
+    return {
+      title: 'Evento',
+    };
+  }
+}
+
 export default async function EventoDetail({ params }: EventoDetailProps) {
   try {
-    const url = `https://backend-portfolio-app.onrender.com/api/banner-eventos?filters[id]=${params.id}&populate=*`;
-    
-    const response = await fetch(url, {
-      cache: 'no-store',
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      return <div>Error al cargar el evento: {response.status}</div>;
-    }
-
-    const { data } = await response.json();
+    const resolvedParams = await params;
+    const data = await getEvento(resolvedParams.id);
 
     if (!data || data.length === 0) {
       return <div>Evento no encontrado</div>;
