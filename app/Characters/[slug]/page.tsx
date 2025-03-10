@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     }
 
     // Construir la URL de la imagen de manera similar a CharacterPage
-    const imageUrl = `http://localhost:1337${character.photo.formats.medium?.url || character.photo.formats.small?.url}`;
+    const imageUrl = `https://backend-portfolio-app.onrender.com/${character.photo.formats.medium?.url || character.photo.formats.small?.url}`;
 
     return (
         <>

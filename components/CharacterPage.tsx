@@ -13,7 +13,7 @@ const CharacterPage = async () => {
                         <Link href={`/Characters/${character.slug}`}>
                             <div className="border-2 border-black rounded-lg overflow-hidden relative transition-transform duration-300 transform hover:scale-105 group">
                                 <img 
-                                    src={`http://localhost:1337${character.photo.formats.small?.url || character.photo.formats.medium?.url}`} 
+                                    src={`https://backend-portfolio-app.onrender.com${character.photo.formats.small?.url || character.photo.formats.medium?.url}`} 
                                     alt={character.name} 
                                     className="w-full h-auto transition-transform duration-300 transform hover:scale-110"
                                 />

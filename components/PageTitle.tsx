@@ -1,6 +1,6 @@
 async function getTitle() {
   try {
-    const response = await fetch('http://localhost:1337/api/texto1', {
+    const response = await fetch('https://backend-portfolio-app.onrender.com/api/texto1', {
       cache: 'no-store'
     });
     

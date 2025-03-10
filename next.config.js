@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost'], // Agregamos localhost como dominio permitido
+    domains: ['localhost', 'backend-portfolio-app.onrender.com'], // Agregamos los dominios permitidos
   },
 }
 

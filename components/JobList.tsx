@@ -14,7 +14,7 @@ type TrabajoProps = {
 
 export default async function JobList() {
   // Hacemos la petición a Strapi 5
-  const response = await fetch('http://localhost:1337/api/tarjetas?populate=*', {
+  const response = await fetch('https://backend-portfolio-app.onrender.com/api/tarjetas?populate=*', {
     cache: 'no-store'  // Para obtener siempre datos frescos
   });
   const { data } = await response.json();
@@ -27,7 +27,7 @@ export default async function JobList() {
   const trabajos: TrabajoProps[] = data.map((item: any) => ({
     id: item.id.toString(),
     imagen: item.imagen?.url 
-      ? `http://localhost:1337${item.imagen.url}`
+      ? `https://backend-portfolio-app.onrender.com${item.imagen.url}`
       : '/placeholder-image.jpg',
     titulo: item.titulo,
     descripcion: item.descripcion

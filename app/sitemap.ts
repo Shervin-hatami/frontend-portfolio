@@ -48,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     // Obtener sitemaps dinámicos de Strapi
-    const response = await fetch('http://localhost:1337/api/strapi-5-sitemap-plugin/sitemap.xml');
+    const response = await fetch('https://backend-portfolio-app.onrender.com/api/strapi-5-sitemap-plugin/sitemap.xml');
     const xmlText = await response.text();
     
     const result = await parseXML(xmlText) as XMLResult;

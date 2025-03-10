@@ -13,7 +13,7 @@ export default async function JobDetail({ params }: JobDetailProps) {
   const id = resolvedParams.id
 
   try {
-    const url = `http://localhost:1337/api/tarjetas?filters[id]=${id}&populate=*`;
+    const url = `https://backend-portfolio-app.onrender.com/api/tarjetas?filters[id]=${id}&populate=*`;
     
     const response = await fetch(url, {
       cache: 'no-store',
@@ -37,7 +37,7 @@ export default async function JobDetail({ params }: JobDetailProps) {
     const trabajo: TrabajoProps = {
       id: trabajoData.id,
       imagen: trabajoData.imagen?.url 
-        ? `http://localhost:1337${trabajoData.imagen.url}` 
+        ? `https://backend-portfolio-app.onrender.com${trabajoData.imagen.url}` 
         : '/placeholder-image.jpg',
       titulo: trabajoData.titulo,
       descripcion: trabajoData.descripcion,

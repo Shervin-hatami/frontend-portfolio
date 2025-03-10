@@ -20,7 +20,7 @@ const chakraPetch = Chakra_Petch({
 
 export default async function EventoDetail({ params }: EventoDetailProps) {
   try {
-    const url = `http://localhost:1337/api/banner-eventos?filters[id]=${params.id}&populate=*`;
+    const url = `https://backend-portfolio-app.onrender.com/api/banner-eventos?filters[id]=${params.id}&populate=*`;
     
     const response = await fetch(url, {
       cache: 'no-store',
@@ -55,7 +55,7 @@ export default async function EventoDetail({ params }: EventoDetailProps) {
         minute: '2-digit'
       }),
       imagen: eventoData.imagenes?.formats?.medium?.url
-        ? `http://localhost:1337${eventoData.imagenes.formats.medium.url}`
+        ? `https://backend-portfolio-app.onrender.com${eventoData.imagenes.formats.medium.url}`
         : '/placeholder-image.jpg',
       contenido: eventoData.contenido
     };

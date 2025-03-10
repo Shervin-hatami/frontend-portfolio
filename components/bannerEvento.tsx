@@ -20,7 +20,7 @@ export interface EventoProps {
 }
 
 export default async function BannerEvento() {
-  const response = await fetch('http://localhost:1337/api/banner-eventos?populate=*', {
+  const response = await fetch('https://backend-portfolio-app.onrender.com/api/banner-eventos?populate=*', {
     cache: 'no-store'
   });
   const { data } = await response.json();
@@ -45,7 +45,7 @@ export default async function BannerEvento() {
         minute: '2-digit'
       }),
       imagen: item.imagenes?.formats?.medium?.url
-        ? `http://localhost:1337${item.imagenes.formats.medium.url}`
+        ? `https://backend-portfolio-app.onrender.com${item.imagenes.formats.medium.url}`
         : '/placeholder-image.jpg',
     };
   });

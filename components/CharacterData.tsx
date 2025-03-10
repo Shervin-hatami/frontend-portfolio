@@ -41,7 +41,7 @@ export type Character = {
 
 // Componente que obtiene los datos de los personajes
 const fetchCharacters = async (): Promise<Character[]> => {
-    const response = await fetch('http://localhost:1337/api/characters?populate=build.stats,build.habilities,photo');
+    const response = await fetch('https://backend-portfolio-app.onrender.com/api/characters?populate=build.stats,build.habilities,photo');
     if (!response.ok) {
         throw new Error('Error fetching characters');
     }

@@ -18,7 +18,7 @@ export interface Elemento {
 
 // Componente que obtiene y muestra los elementos
 const ListaElementos = async () => {
-    const response = await fetch('http://localhost:1337/api/primer-objetos?populate[foto]=true&populate[segundo_objetos][populate][foto]=true');
+    const response = await fetch('https://backend-portfolio-app.onrender.com/api/primer-objetos?populate[foto]=true&populate[segundo_objetos][populate][foto]=true');
 
     // Verificar si la respuesta es correcta
     if (!response.ok) {
@@ -40,14 +40,14 @@ const ListaElementos = async () => {
         id: item.id,
         nombre: item.nombre,
         descripcion: item.descripcion,
-        foto: item.foto ? `http://localhost:1337${item.foto.url}` : null,
+        foto: item.foto ? `https://backend-portfolio-app.onrender.com${item.foto.url}` : null,
         segundoObjetos: item.segundo_objetos.map((obj: any) => {
             console.log(obj); // Imprimir cada objeto de segundo_objetos para verificar su estructura
             return {
                 id: obj.id,
                 nombre: obj.nombre,
                 slug: obj.slug,
-                foto: obj.foto ? `http://localhost:1337${obj.foto.url}` : null // Cambia esto según la estructura real
+                foto: obj.foto ? `https://backend-portfolio-app.onrender.com${obj.foto.url}` : null // Cambia esto según la estructura real
             };
         }) || []
     }));
