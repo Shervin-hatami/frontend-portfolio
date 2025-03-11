@@ -22,6 +22,9 @@ const chakraPetch = Chakra_Petch({
 export const metadata: Metadata = {
   title: 'portfolio shervin hatami massoumpour',
   description: 'portfolio shervin hatami massoumpour',
+  other: {
+    'google-site-verification': 'WB3uixur644G5IABYK9rYMmRt7S7ozY38NNki4Q5_n0',
+  },
 };
 
 // Componente principal de Layout que envuelve toda la aplicación
