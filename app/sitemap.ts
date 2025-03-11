@@ -28,19 +28,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Obtener sitemaps estáticos
     const staticUrls: SitemapUrl[] = [
         { 
-            url: 'http://localhost:3000/',
+            url: 'https://shervin-portfolio.vercel.app/',
             lastModified: new Date().toISOString(),
             priority: 1.0,
             changeFrequency: 'weekly'
         },
         { 
-            url: 'http://localhost:3000/pagina_prueba',
+            url: 'https://shervin-portfolio.vercel.app/pagina_prueba',
             lastModified: new Date().toISOString(),
             priority: 0.8,
             changeFrequency: 'monthly'
         },
         { 
-            url: 'http://localhost:3000/Characters',
+            url: 'https://shervin-portfolio.vercel.app/Characters',
             lastModified: new Date().toISOString(),
             priority: 0.8,
             changeFrequency: 'monthly'
