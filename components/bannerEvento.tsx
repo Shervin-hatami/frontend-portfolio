@@ -21,7 +21,7 @@ export interface EventoProps {
 
 export default async function BannerEvento() {
   const response = await fetch('https://backend-portfolio-app.onrender.com/api/banner-eventos?populate=*', {
-    cache: 'no-store'
+    next: { revalidate: 3600 } // Revalidar cada hora
   });
   const { data } = await response.json();
 
@@ -31,6 +31,12 @@ export default async function BannerEvento() {
 
   const eventos: BannerEventoProps[] = data.map((item: any) => {
     const fechaEvento = new Date(item.fecha);
+    
+    // Construir la URL completa para la imagen
+    let imageUrl = item.imagenes?.formats?.medium?.url || '/placeholder-image.jpg';
+    if (imageUrl.startsWith('/')) {
+      imageUrl = `https://backend-portfolio-app.onrender.com${imageUrl}`;
+    }
     
     return {
       id: item.id,
@@ -44,13 +50,9 @@ export default async function BannerEvento() {
         hour: '2-digit',
         minute: '2-digit'
       }),
-      imagen: item.imagenes?.formats?.medium?.url
-        ? item.imagenes.formats.medium.url
-        : '/placeholder-image.jpg',
+      imagen: imageUrl,
     };
   });
-
-  console.log('URL de la imagen:', eventos[0]?.imagen);
 
   return (
     <div className="w-full space-y-4">
@@ -66,6 +68,7 @@ export default async function BannerEvento() {
               alt="Imagen del evento"
               fill
               className="object-cover"
+              unoptimized={evento.imagen.includes('cloudinary')}
             />
             <div className="absolute inset-0 bg-black/50 p-6">
               <div className="flex flex-col h-full text-white">
