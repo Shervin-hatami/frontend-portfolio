@@ -6,12 +6,14 @@ export default async function BotonImagenPerfil() {
 
   try {
     const response = await fetch('https://backend-portfolio-app.onrender.com/api/imagen-layout?populate=*', {
-      cache: 'no-store'
+      next: { revalidate: 3600 } // Revalidar cada hora
     });
     const { data } = await response.json();
 
     if (data && data.imagenLayout?.url) {
-      imagenUrl = `https://backend-portfolio-app.onrender.com${data.imagenLayout.url}`;
+      imagenUrl = data.imagenLayout.url.startsWith('http')
+        ? data.imagenLayout.url
+        : `https://backend-portfolio-app.onrender.com${data.imagenLayout.url}`;
     }
   } catch (error) {
     console.error("Error al obtener la imagen:", error);
