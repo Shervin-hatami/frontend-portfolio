@@ -45,7 +45,7 @@ export default async function BannerEvento() {
         minute: '2-digit'
       }),
       imagen: item.imagenes?.formats?.medium?.url
-        ? `${item.imagenes.formats.medium.url}`
+        ? item.imagenes.formats.medium.url
         : '/placeholder-image.jpg',
     };
   });
