@@ -7,7 +7,7 @@ import PageTitle from '../components/PageTitle'
 export default async function Home() {
   return (
     <main className="min-h-screen p-8">
-      <div className="flex justify-center items-center p-10">
+      <div className="flex justify-center items-center p-8">
       <PageTitle />
       </div>
       <JobList />
