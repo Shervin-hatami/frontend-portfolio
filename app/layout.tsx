@@ -20,8 +20,8 @@ const chakraPetch = Chakra_Petch({
 
 // Metadatos de la aplicación
 export const metadata: Metadata = {
-  title: 'portfolio shervin hatami massoumpour',
-  description: 'portfolio shervin hatami massoumpour',
+  title: 'Shervin portfolio - Diseñador y desarrollador.',
+  description: 'portfolio de shervin hatami massoumpour, diseñador y desarrollador de aplicaciones y contenido interactivo. descripcion de trabajos y proyectos personales, eventos relacionados y colaboraciones para proyectos futuros.',
   other: {
     'google-site-verification': 'WB3uixur644G5IABYK9rYMmRt7S7ozY38NNki4Q5_n0',
   },
@@ -40,7 +40,7 @@ export default function RootLayout({
       {/* Aplicamos la fuente Inter a todo el body */}
       <body className={inter.className}>
         <NavBar />
-        <main className="pt-20">
+        <main className="pt-30">
           {children} {/* Aquí se renderiza el contenido de cada página */}
         </main>
 
