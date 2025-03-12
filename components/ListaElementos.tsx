@@ -19,7 +19,7 @@ export interface Elemento {
 // Componente que obtiene y muestra los elementos
 const ListaElementos = async () => {
     const response = await fetch('https://backend-portfolio-app.onrender.com/api/primer-objetos?populate[foto]=true&populate[segundo_objetos][populate][foto]=true', {
-        next: { revalidate: 3600 } // Revalidar cada hora
+        next: { revalidate: 150 } // Revalidar cada 2.5 minutos
     });
 
     // Verificar si la respuesta es correcta

@@ -1,5 +1,4 @@
-
-import BotonImagenPerfil from './BottonImagenPerfil'
+import BotonImagenPerfil from './BotonImagenPerfil'
 import Navigation from './Navigation'
 
 export default function NavBar() {

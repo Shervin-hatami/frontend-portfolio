@@ -1,7 +1,7 @@
 async function getTitle() {
   try {
     const response = await fetch('https://backend-portfolio-app.onrender.com/api/texto1', {
-      next: { revalidate: 3600 } // Revalidar cada hora
+      next: { revalidate: 150 } // Revalidar cada 2.5 minutos (150 segundos)
     });
     
     if (!response.ok) {

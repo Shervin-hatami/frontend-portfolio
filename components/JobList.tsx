@@ -15,7 +15,7 @@ type TrabajoProps = {
 export default async function JobList() {
   // Hacemos la petición a Strapi 5
   const response = await fetch('https://backend-portfolio-app.onrender.com/api/tarjetas?populate=*', {
-    next: { revalidate: 3600 }  // Revalidar cada hora
+    next: { revalidate: 150 }  // Revalidar cada 2.5 minutos
   });
   const { data } = await response.json();
 
