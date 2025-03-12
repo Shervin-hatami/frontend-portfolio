@@ -21,7 +21,7 @@ export interface EventoProps {
 
 export default async function BannerEvento() {
   const response = await fetch('https://backend-portfolio-app.onrender.com/api/banner-eventos?populate=*', {
-    next: { revalidate: 3600 } // Revalidar cada hora
+    next: { revalidate: 150 } // Revalidar cada 2.5 minutos
   });
   const { data } = await response.json();
 
