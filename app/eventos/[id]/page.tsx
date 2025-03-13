@@ -78,7 +78,7 @@ export default async function EventoDetail({ params }: EventoDetailProps) {
         minute: '2-digit'
       }),
       imagen: eventoData.imagenes?.formats?.medium?.url
-        ? `https://backend-portfolio-app.onrender.com${eventoData.imagenes.formats.medium.url}`
+        ? eventoData.imagenes.formats.medium.url
         : '/placeholder-image.jpg',
       contenido: eventoData.contenido
     };

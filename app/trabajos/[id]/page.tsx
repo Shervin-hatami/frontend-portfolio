@@ -37,7 +37,7 @@ export default async function JobDetail({ params }: JobDetailProps) {
     const trabajo: TrabajoProps = {
       id: trabajoData.id,
       imagen: trabajoData.imagen?.url 
-        ? `https://backend-portfolio-app.onrender.com${trabajoData.imagen.url}` 
+        ? trabajoData.imagen.url 
         : '/placeholder-image.jpg',
       titulo: trabajoData.titulo,
       descripcion: trabajoData.descripcion,

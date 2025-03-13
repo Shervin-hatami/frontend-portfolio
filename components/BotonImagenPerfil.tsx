@@ -11,9 +11,7 @@ export default async function BotonImagenPerfil() {
     const { data } = await response.json();
 
     if (data && data.imagenLayout?.url) {
-      imagenUrl = data.imagenLayout.url.startsWith('http')
-        ? data.imagenLayout.url
-        : `https://backend-portfolio-app.onrender.com${data.imagenLayout.url}`;
+      imagenUrl = data.imagenLayout.url;
     }
   } catch (error) {
     console.error("Error al obtener la imagen:", error);
