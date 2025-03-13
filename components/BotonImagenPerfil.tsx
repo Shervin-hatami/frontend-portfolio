@@ -27,6 +27,7 @@ export default async function BotonImagenPerfil() {
           height={50}
           className="rounded-full hover:opacity-80 transition-opacity"
           priority
+          unoptimized={imagenUrl.includes('cloudinary')}
         />
       </div>
     </Link>
