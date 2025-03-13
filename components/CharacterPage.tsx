@@ -16,7 +16,7 @@ const CharacterPage = async () => {
                                     src={character.photo.formats.small?.url || character.photo.formats.medium?.url
                                         ? (character.photo.formats.small?.url?.startsWith('http')
                                             ? character.photo.formats.small?.url
-                                            : `https://backend-portfolio-app.onrender.com${character.photo.formats.small?.url || character.photo.formats.medium?.url}`)
+                                            : character.photo.formats.small?.url || character.photo.formats.medium?.url)
                                         : '/placeholder-image.jpg'} 
                                     alt={character.name} 
                                     className="w-full h-auto transition-transform duration-300 transform hover:scale-110"

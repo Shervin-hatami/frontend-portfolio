@@ -1,5 +1,3 @@
-
-
 // Define the type for stats
 export type Stat = {
     id: number;
@@ -41,7 +39,9 @@ export type Character = {
 
 // Componente que obtiene los datos de los personajes
 const fetchCharacters = async (): Promise<Character[]> => {
-    const response = await fetch('https://backend-portfolio-app.onrender.com/api/characters?populate=build.stats,build.habilities,photo');
+    const response = await fetch('https://backend-portfolio-app.onrender.com/api/characters?populate=build.stats,build.habilities,photo', {
+        next: { revalidate: 150 } // Revalidar cada 2.5 minutos
+    });
     if (!response.ok) {
         throw new Error('Error fetching characters');
     }
