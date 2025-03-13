@@ -18,7 +18,9 @@ export default async function Page({ params }: Props) {
     }
 
     // Construir la URL de la imagen de manera similar a CharacterPage
-    const imageUrl = character.photo.formats.medium?.url || character.photo.formats.small?.url;
+    const imageUrl = character.photo?.formats?.medium?.url || 
+                    character.photo?.formats?.small?.url || 
+                    '/placeholder-image.jpg';
 
     return (
         <>
@@ -26,11 +28,11 @@ export default async function Page({ params }: Props) {
                 <div className="text-center">
                     <h1 className="text-2xl font-bold">{character.name}</h1>
                     <div className="mt-4">
-                        {imageUrl ? (
-                            <img className="rounded-lg" src={imageUrl} alt={character.name} />
-                        ) : (
-                            <div>No hay imagen disponible.</div> // Mensaje si no hay imagen
-                        )}
+                        <img 
+                            className="rounded-lg" 
+                            src={imageUrl.startsWith('http') ? imageUrl : '/placeholder-image.jpg'} 
+                            alt={character.name} 
+                        />
                     </div>
                 </div>
             </div>
