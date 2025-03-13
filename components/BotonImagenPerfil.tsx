@@ -6,7 +6,7 @@ export default async function BotonImagenPerfil() {
 
   try {
     const response = await fetch('https://backend-portfolio-app.onrender.com/api/imagen-layout?populate=*', {
-      next: { revalidate: 3600 } // Revalidar cada hora
+      next: { revalidate: 60 } // Revalidar cada 60 segundos
     });
     const { data } = await response.json();
 
