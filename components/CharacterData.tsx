@@ -25,13 +25,13 @@ export type Character = {
     name: string;
     slug: string;
     build: Build[]; // Change to an array of Build
-    photo: {
-        formats: {
+    photo?: {
+        formats?: {
             medium?: {
-                url: string;
+                url?: string;
             };
             small?: {
-                url: string;
+                url?: string;
             };
         };
     };
@@ -42,11 +42,24 @@ const fetchCharacters = async (): Promise<Character[]> => {
     const response = await fetch('https://backend-portfolio-app.onrender.com/api/characters?populate=build.stats,build.habilities,photo', {
         next: { revalidate: 150 } // Revalidar cada 2.5 minutos
     });
+    
     if (!response.ok) {
         throw new Error('Error fetching characters');
     }
+    
     const data = await response.json();
-    return data.data; // Accede al array de personajes
+    
+    if (!data || !data.data || !Array.isArray(data.data)) {
+        return []; // Retornar array vacío si no hay datos válidos
+    }
+    
+    return data.data.map((char: any) => ({
+        id: char.id,
+        name: char.name || 'Sin nombre',
+        slug: char.slug || `character-${char.id}`,
+        build: Array.isArray(char.build) ? char.build : [],
+        photo: char.photo || undefined
+    }));
 };
 
 export default fetchCharacters;
