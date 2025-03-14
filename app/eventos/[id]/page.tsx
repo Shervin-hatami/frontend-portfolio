@@ -1,6 +1,8 @@
 import { EventoProps } from "@/components/bannerEvento";
 import { Space_Grotesk, Chakra_Petch } from 'next/font/google'
 import { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface EventoDetailProps {
   params: Promise<{
@@ -45,10 +47,12 @@ export async function generateMetadata({ params }: EventoDetailProps): Promise<M
     const data = await getEvento(resolvedParams.id);
     return {
       title: data[0]?.descripcion || `Evento ${resolvedParams.id}`,
+      description: data[0]?.contenido?.[0]?.children?.[0]?.text || 'Detalles del evento',
     };
   } catch (error) {
     return {
       title: 'Evento',
+      description: 'Detalles del evento',
     };
   }
 }
@@ -59,7 +63,19 @@ export default async function EventoDetail({ params }: EventoDetailProps) {
     const data = await getEvento(resolvedParams.id);
 
     if (!data || data.length === 0) {
-      return <div>Evento no encontrado</div>;
+      return (
+        <div className="min-h-screen flex items-center justify-center px-4">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Evento no encontrado</h1>
+            <Link 
+              href="/" 
+              className="text-blue-600 hover:text-blue-800 underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+            >
+              Volver a la página principal
+            </Link>
+          </div>
+        </div>
+      );
     }
 
     const eventoData = data[0];
@@ -84,51 +100,82 @@ export default async function EventoDetail({ params }: EventoDetailProps) {
     };
 
     return (
-      <div className="min-h-screen">
+      <article className="min-h-screen">
         {/* Sección hero con imagen de fondo */}
         <div 
-          className="relative h-screen bg-cover bg-center"
-          style={{ 
-            backgroundImage: `url(${evento.imagen})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
+          className="relative h-[50vh] md:h-screen bg-cover bg-center"
+          aria-label="Imagen principal del evento"
         >
+          <Image
+            src={evento.imagen}
+            alt={`Imagen del evento: ${evento.descripcion}`}
+            layout="fill"
+            objectFit="cover"
+            priority
+            className="transition-opacity duration-300"
+          />
+          
           {/* Overlay oscuro con gradiente */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40"></div>
+          <div 
+            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/40"
+            aria-hidden="true"
+          ></div>
           
           {/* Contenido sobre la imagen */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center p-8 max-w-4xl backdrop-blur-sm bg-black/20 rounded-xl">
-              <h2 className={`${chakraPetch.className} text-6xl font-bold mb-8 text-emerald-200 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] tracking-wide`}>
+            <div className="text-center p-4 md:p-8 max-w-4xl backdrop-blur-sm bg-black/20 rounded-xl">
+              <h1 
+                className={`${chakraPetch.className} text-4xl md:text-6xl font-bold mb-6 md:mb-8 text-emerald-200 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] tracking-wide`}
+              >
                 {evento.descripcion}
-              </h2>
-              <div className={`${spaceGrotesk.className} text-3xl text-emerald-50 drop-shadow-[0_3px_3px_rgba(0,0,0,0.7)]`}>
-                <p className="mb-3">Fecha: {evento.fecha}</p>
-                <p>Hora: {evento.hora}</p>
+              </h1>
+              <div 
+                className={`${spaceGrotesk.className} text-xl md:text-3xl text-emerald-50 drop-shadow-[0_3px_3px_rgba(0,0,0,0.7)]`}
+              >
+                <p className="mb-3">
+                  <span className="sr-only">Fecha del evento:</span>
+                  {evento.fecha}
+                </p>
+                <p>
+                  <span className="sr-only">Hora del evento:</span>
+                  {evento.hora}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Contenido del evento */}
-        <div className="container mx-auto py-16 px-4 bg-gray-50">
+        <div className="container mx-auto py-12 md:py-16 px-4">
           <div className="prose prose-lg max-w-none">
             {evento.contenido && Array.isArray(evento.contenido) 
               ? evento.contenido.map((block, index) => (
-                  <p key={index} className="text-gray-800 leading-relaxed">
-                    {block.children?.map((child: { text: string }) => 
-                      child.text || ''
+                  <p key={index} className="text-gray-800 leading-relaxed mb-6">
+                    {block.children?.map((child: { text: string }, childIndex: number) => 
+                      <span key={childIndex}>{child.text || ''}</span>
                     ).join('')}
                   </p>
                 ))
               : evento.contenido}
           </div>
         </div>
-      </div>
+      </article>
     );
   } catch (error) {
     console.error('Error al cargar el evento:', error);
-    return <div>Error al cargar el evento</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Error al cargar el evento</h1>
+          <p className="text-gray-600 mb-6">Por favor, intenta nuevamente más tarde.</p>
+          <Link 
+            href="/" 
+            className="text-blue-600 hover:text-blue-800 underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded"
+          >
+            Volver a la página principal
+          </Link>
+        </div>
+      </div>
+    );
   }
 }
