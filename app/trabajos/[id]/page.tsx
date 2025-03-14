@@ -45,10 +45,10 @@ export default async function JobDetail({ params }: JobDetailProps) {
     };
 
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen pt-5">
         {/* Sección hero con imagen de fondo */}
         <div 
-          className="relative h-[50vh] bg-cover bg-center"
+          className="relative h-[60vh] bg-cover bg-center"
           style={{ backgroundImage: `url(${trabajo.imagen})` }}
         >
           {/* Overlay oscuro para mejorar legibilidad */}

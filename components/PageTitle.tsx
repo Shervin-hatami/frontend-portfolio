@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 async function getTitle() {
   try {
     const response = await fetch('https://backend-portfolio-app.onrender.com/api/texto1', {
@@ -21,6 +23,8 @@ export default async function PageTitle() {
   const title = await getTitle();
   
   return (
-    <h1 className="text-4xl font-bold mb-8">{title}</h1>
+    <Link href="/" className="inline-block text-white hover:text-gray-300 transition-all duration-300 ease-in-out hover:scale-[1.02] transform">
+      <h1>{title}</h1>
+    </Link>
   );
 }

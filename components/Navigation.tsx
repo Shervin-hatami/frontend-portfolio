@@ -11,9 +11,6 @@ export default function Navigation() {
       <Button isCharacter={true}>
         Character
       </Button>
-      <Button>
-        About me
-      </Button>
     </div>
   )
 } 

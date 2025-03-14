@@ -40,14 +40,14 @@ export default function RootLayout({
       {/* Aplicamos la fuente Inter a todo el body */}
       <body className={inter.className}>
         <NavBar />
-        <main className="pt-30">
+        <main className="pt-20">
           {children} {/* Aquí se renderiza el contenido de cada página */}
         </main>
 
         {/* Pie de página */}
         <footer className="bg-gray-800 text-white p-8 mt-12">
-          <div className="container mx-auto">
-            <p>Página de portfolio para ir tocando cosillas en Next.js y Tailwind CSS usando el Cursor AI.</p>
+          <div className="container mx-auto text-center">
+            <p>Página de portfolio.</p>
           </div>
         </footer>
       </body>

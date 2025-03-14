@@ -19,16 +19,18 @@ export default async function BotonImagenPerfil() {
 
   return (
     <Link href="/">
-      <div className="cursor-pointer">
-        <Image
-          src={imagenUrl}
-          alt="Imagen de perfil"
-          width={50}
-          height={50}
-          className="rounded-full hover:opacity-80 transition-opacity"
-          priority
-          unoptimized={imagenUrl.includes('cloudinary')}
-        />
+      <div className="cursor-pointer rounded-full shadow-[0_5px_0_0] shadow-slate-400 active:transform active:translate-y-[5px] active:shadow-none transition-all">
+        <div className="border-2 border-blue-900 rounded-full">
+          <Image
+            src={imagenUrl}
+            alt="Imagen de perfil"
+            width={50}
+            height={50}
+            className="rounded-full hover:opacity-80 transition-opacity"
+            priority
+            unoptimized={imagenUrl.includes('cloudinary')}
+          />
+        </div>
       </div>
     </Link>
   );

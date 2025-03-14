@@ -3,6 +3,9 @@ import { MetadataRoute } from 'next';
 import { parseString } from 'xml2js';
 import { promisify } from 'util';
 
+// Configuración de revalidación
+export const revalidate = 3600; // Revalidar cada hora
+
 type SitemapUrl = {
     url: string;
     lastModified: string;
@@ -47,21 +50,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ];
 
-    // Obtener sitemaps dinámicos de Strapi
-    const response = await fetch('https://backend-portfolio-app.onrender.com/api/strapi-5-sitemap-plugin/sitemap.xml');
-    const xmlText = await response.text();
-    
-    const result = await parseXML(xmlText) as XMLResult;
-    const urls = result.urlset.url || [];
+    try {
+        // Obtener sitemaps dinámicos de Strapi con opciones de caché
+        const response = await fetch(
+            'https://backend-portfolio-app.onrender.com/api/strapi-5-sitemap-plugin/sitemap.xml',
+            {
+                next: {
+                    revalidate: 3600 // Revalidar la caché cada hora
+                }
+            }
+        );
 
-    // Transformar los datos de Strapi
-    const dynamicUrls: SitemapUrl[] = urls.map(url => ({
-        url: url.loc[0],
-        lastModified: url.lastmod[0],
-        priority: parseFloat(url.priority[0]),
-        changeFrequency: url.changefreq[0] as SitemapUrl['changeFrequency']
-    }));
+        if (!response.ok) {
+            throw new Error('Error al obtener el sitemap de Strapi');
+        }
 
-    // Combinar ambos sitemaps
-    return [...staticUrls, ...dynamicUrls];
+        const xmlText = await response.text();
+        const result = await parseXML(xmlText) as XMLResult;
+        const urls = result.urlset.url || [];
+
+        // Transformar los datos de Strapi
+        const dynamicUrls: SitemapUrl[] = urls.map(url => ({
+            url: url.loc[0],
+            lastModified: url.lastmod[0],
+            priority: parseFloat(url.priority[0]),
+            changeFrequency: url.changefreq[0] as SitemapUrl['changeFrequency']
+        }));
+
+        // Combinar ambos sitemaps
+        return [...staticUrls, ...dynamicUrls];
+    } catch (error) {
+        console.error('Error al generar el sitemap:', error);
+        // En caso de error, devolver al menos las URLs estáticas
+        return staticUrls;
+    }
 }

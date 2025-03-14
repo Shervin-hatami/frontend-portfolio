@@ -24,7 +24,7 @@ export default async function Page({ params }: Props) {
 
     return (
         <>
-            <div className="flex flex-col items-center py-5">
+            <div className="flex flex-col items-center py-10">
                 <div className="text-center">
                     <h1 className="text-2xl font-bold">{character.name}</h1>
                     <div className="mt-4">
