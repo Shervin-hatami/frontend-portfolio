@@ -24,7 +24,7 @@ export default async function PageTitle() {
   
   return (
     <Link href="/" className="inline-block text-white hover:text-gray-300 transition-all duration-300 ease-in-out hover:scale-[1.02] transform">
-      <h1>{title}</h1>
+      <h1 className="text-lg md:text-2xl lg:text-3xl text-center">{title}</h1>
     </Link>
   );
 }
